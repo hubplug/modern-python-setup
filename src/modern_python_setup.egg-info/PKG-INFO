@@ -1,0 +1,13 @@
+Metadata-Version: 1.2
+Name: modern-python-setup
+Version: 0.1.0
+Summary: The Modern Python Setup project
+Home-page: https://github.com/hubplug/modern-python-setup
+Author: Hub Plug
+Author-email: 31110528+hubplug@users.noreply.github.com
+License: UNKNOWN
+Description: # modern-python-setup
+        Based on "Hypermodern Python" by CLAUDIO JOLOWICZ (https://cjolowicz.github.io/posts/hypermodern-python-01-setup/)
+        
+Platform: UNKNOWN
+Requires-Python: >=3.7,<4.0
