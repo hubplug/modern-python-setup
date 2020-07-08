@@ -1,0 +1,13 @@
+# setup pyenv
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# setup poetry
+export PATH="$HOME/.poetry/bin:$PATH"
+
+# setup .local/bin
+export PATH="$HOME/.local/bin:$PATH"
+
+# setup aliases
+alias dir="ls -alF | more"
