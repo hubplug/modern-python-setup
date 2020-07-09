@@ -16,6 +16,9 @@ requests = "^2.24.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.4.3"
+flake8 = "^3.8.3"
+bandit = "^1.6.2"
+black = {version = "^19.10b0", allow-prereleases = true}
 
 [tool.poetry.scripts]
 modern-python-setup = "modern_python_setup.console:main"
