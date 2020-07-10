@@ -20,6 +20,11 @@ def mock_requests_get(mocker):
     return mock
 
 
+# "You should generally have a single assertion per test case, because more fine-grained
+# test cases make it easier to figure out why the test suite failed when it does."
+# - CLAUDIO JOLOWICZ
+
+
 def test_main_succeeds(runner, mock_requests_get):
     result = runner.invoke(console.main)
     assert result.exit_code == 0
