@@ -94,3 +94,11 @@ def test_main_uses_specified_language(runner, mock_wikipedia_random_page):
 #     api = FakeAPI.create()
 #     yield api
 #     api.shutdown()
+
+
+# use pytest marker to mark tests to skip with -m
+# in this case we define end-to-end tests which should be skipped when unit testing
+@pytest.mark.e2e
+def test_main_succeeds_in_production_env(runner):
+    result = runner.invoke(console.main)
+    assert result.exit_code == 0
