@@ -12,13 +12,18 @@
 ; ; set complexity limit
 ; max-complexity = 10
 
-[flake8] ; after flake8-black
+[flake8] ; after flake8-black, flake8-import-order
 ; enable all built-in violation classes, AND flake8-black warnings
 ; BLK are flake8-black warnings
-select = BLK,C,E,F,W
+; I are flake8-import-order warnings
+select = BLK,C,E,F,I,W
 ; ignore conflicting warnings / errors
 ignore = E203,W503
 ; set complexity limit
 max-complexity = 10
 ; set the maximum line length to a more permissive value
 max-line-length = 88
+; inform flake8-import-order about package names which are considered local
+application-import-names = modern_python_setup,tests
+; adopt Google styleguide with respect to the grouping and ordering details (import)
+import-order-style = google
