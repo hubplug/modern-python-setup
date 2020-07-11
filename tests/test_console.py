@@ -59,3 +59,38 @@ def mock_wikipedia_random_page(mocker):
 def test_main_uses_specified_language(runner, mock_wikipedia_random_page):
     runner.invoke(console.main, ["--language=pl"])
     mock_wikipedia_random_page.assert_called_with(language="pl")
+
+
+# general notes on fakes
+# (scaled down functional but not production dependancy, useful if mocks are too
+# expensive to implement or too forgiving for errors, e.g. in-memory db):
+#
+# e.g.
+# class FakeAPI:
+#     url = "http://localhost:5000/"
+#     @classmethod
+#     def create(cls):
+#         ...
+#     def shutdown(self):
+#         ...
+#
+# to test:
+#
+# wrong: (no tear down -> resource leak)
+# @pytest.fixture
+# def fake_api():
+#     return FakeAPI.create()
+#
+# correct1: (as generator)(set up & tear down per test function)
+# @pytest.fixture
+# def fake_api():
+#     api = FakeAPI.create()
+#     yield api
+#     api.shutdown()
+#
+# correct2: (as generator)(set up & tear down per test session, if set up / tear down expensive )
+# @pytest.fixture(scope="session")
+# def fake_api():
+#     api = FakeAPI.create()
+#     yield api
+#     api.shutdown()
