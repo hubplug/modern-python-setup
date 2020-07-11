@@ -16,10 +16,30 @@ def tests(session):
     session.run("pytest", *args)
 
 
-# nox session for linting
+# instead of simply using "poetry install" (like for pytest), which installs a whole
+# bunch of dependencies required for testing but not necessarily for linting &
+# formatting, use poetry to generate "dev only" "requirements.txt" and pass it to
+# pip to install only dev dependencies and with correct version (pinning)
+def install_with_constraints(session, *args, **kwargs):
+    with tempfile.NamedTemporaryFile() as requirements:
+        session.run(
+            "poetry",
+            "export",
+            "--dev",
+            "--format=requirements.txt",
+            f"--output={requirements.name}",
+            external=True,
+        )
+        # session.install() installs package(s) into virtual env via pip
+        # --constraint file specifies which version(s) to install
+        session.install(f"--constraint={requirements.name}", *args, **kwargs)
+
+
+# locations for linting & formatting
 locations = "src", "tests", "noxfile.py"
 
 
+# nox session for linting
 @nox.session(python=["3.8", "3.7"])
 def lint(session):
     args = session.posargs or locations
@@ -35,7 +55,16 @@ def lint(session):
     # session.install("flake8", "flake8-black", "flake8-bugbear", "flake8-import-order")
     # add flake8-bandit to check security issues
     # alternative to flake8-bandit: python-afl
-    session.install(
+    # session.install(
+    #     "flake8",
+    #     "flake8-bandit",
+    #     "flake8-black",
+    #     "flake8-bugbear",
+    #     "flake8-import-order",
+    # )
+    # change do call install_with_constraints() instead of session.install()
+    install_with_constraints(
+        session,
         "flake8",
         "flake8-bandit",
         "flake8-black",
@@ -55,7 +84,9 @@ def lint(session):
 @nox.session(python="3.8")
 def black(session):
     args = session.posargs or locations
-    session.install("black")
+    # session.install("black")
+    # change do call install_with_constraints() instead of session.install()
+    install_with_constraints(session, "black")
     session.run("black", *args)
 
 
@@ -74,7 +105,9 @@ def safety(session):
             f"--output={requirements.name}",
             external=True,
         )
-        session.install("safety")
+        # session.install("safety")
+        # change do call install_with_constraints() instead of session.install()
+        install_with_constraints(session, "safety")
         session.run("safety", "check", f"--file={requirements.name}", "--full-report")
 
 
