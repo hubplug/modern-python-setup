@@ -30,3 +30,11 @@ def lint(session):
 # use the --session (-s) option to restrict it to a specific session.
 # e.g. nox -rs tests (only run tests)
 # e.g. nox -rs lint (only run lint)
+
+
+# nox session for code formatting (black)
+@nox.session(python="3.8")
+def black(session):
+    args = session.posargs or locations
+    session.install("black")
+    session.run("black", *args)
