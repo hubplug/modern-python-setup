@@ -1,3 +1,5 @@
+import tempfile
+
 import nox
 
 
@@ -57,6 +59,25 @@ def black(session):
     session.run("black", *args)
 
 
+# nox session for dependency (library/package) security check (safety)
+# uses the poetry export command to convert poetry’s lock file to a requirements file
+# the standard tempfile module is used to create a temporary file for the requirements
+@nox.session(python="3.8")
+def safety(session):
+    with tempfile.NamedTemporaryFile() as requirements:
+        session.run(
+            "poetry",
+            "export",
+            "--dev",
+            "--format=requirements.txt",
+            "--without-hashes",
+            f"--output={requirements.name}",
+            external=True,
+        )
+        session.install("safety")
+        session.run("safety", "check", f"--file={requirements.name}", "--full-report")
+
+
 # define sessions run by default, excluding "black"
 # i.e. do not run black and modify file(s) all the time
-nox.options.sessions = "lint", "tests"
+nox.options.sessions = "lint", "safety", "tests"
