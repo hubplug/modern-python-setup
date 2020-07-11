@@ -28,7 +28,9 @@ def lint(session):
     # add flake8-import-order to check import order
     # alternative to flake8-import-order: flake8-isort
     #   also: asottile/reorder-python-imports and sqlalchemyorg/zimports
-    session.install("flake8", "flake8-black", "flake8-import-order")
+    # session.install("flake8", "flake8-black", "flake8-import-order")
+    # add flake8-bugbear to check additional bugs or design problems
+    session.install("flake8", "flake8-black", "flake8-bugbear", "flake8-import-order")
     session.run("flake8", *args)
 
 
