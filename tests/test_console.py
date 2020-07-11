@@ -88,7 +88,8 @@ def test_main_uses_specified_language(runner, mock_wikipedia_random_page):
 #     yield api
 #     api.shutdown()
 #
-# correct2: (as generator)(set up & tear down per test session, if set up / tear down expensive )
+# correct2: (as generator)(set up & tear down per test session, if set up /
+#            tear down expensive )
 # @pytest.fixture(scope="session")
 # def fake_api():
 #     api = FakeAPI.create()

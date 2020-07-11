@@ -6,8 +6,19 @@
 ; C are violations reported by mccabe, which checks the code complexity of your 
 ;   Python package against a configured limit.
 
-[flake8]
-; enable all built-in violation classes
-select = C,E,F,W
+; [flake8] ; before flake8-black
+; ; enable all built-in violation classes
+; select = C,E,F,W
+; ; set complexity limit
+; max-complexity = 10
+
+[flake8] ; after flake8-black
+; enable all built-in violation classes, AND flake8-black warnings
+; BLK are flake8-black warnings
+select = BLK,C,E,F,W
+; ignore conflicting warnings / errors
+ignore = E203,W503
 ; set complexity limit
 max-complexity = 10
+; set the maximum line length to a more permissive value
+max-line-length = 88

@@ -22,7 +22,9 @@ locations = "src", "tests", "noxfile.py"
 def lint(session):
     args = session.posargs or locations
     # session.install() installs package(s) into virtual env via pip
-    session.install("flake8")
+    # session.install("flake8")
+    # add flake8-black to generate black warning (without modifying file)
+    session.install("flake8", "flake8-black")
     session.run("flake8", *args)
 
 
@@ -38,3 +40,8 @@ def black(session):
     args = session.posargs or locations
     session.install("black")
     session.run("black", *args)
+
+
+# define sessions run by default, excluding "black"
+# i.e. do not run black and modify file(s) all the time
+nox.options.sessions = "lint", "tests"
