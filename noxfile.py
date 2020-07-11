@@ -1,6 +1,7 @@
 import nox
 
 
+# nox session for automated tests
 @nox.session(python=["3.8", "3.7"])
 def tests(session):
     # no end-to-end tests for default automated unit testing
@@ -11,3 +12,21 @@ def tests(session):
     args = session.posargs or ["--cov", "-m", "not e2e"]
     session.run("poetry", "install", external=True)
     session.run("pytest", *args)
+
+
+# nox session for linting
+locations = "src", "tests", "noxfile.py"
+
+
+@nox.session(python=["3.8", "3.7"])
+def lint(session):
+    args = session.posargs or locations
+    # session.install() installs package(s) into virtual env via pip
+    session.install("flake8")
+    session.run("flake8", *args)
+
+
+# by default, Nox runs all sessions defined in noxfile.py.
+# use the --session (-s) option to restrict it to a specific session.
+# e.g. nox -rs tests (only run tests)
+# e.g. nox -rs lint (only run lint)
