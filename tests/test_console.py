@@ -11,16 +11,6 @@ def runner():
     return click.testing.CliRunner()
 
 
-@pytest.fixture
-def mock_requests_get(mocker):
-    mock = mocker.patch("requests.get")
-    mock.return_value.__enter__.return_value.json.return_value = {
-        "title": "Lorem Ipsum",
-        "extract": "Lorem ipsum dolor sit amet",
-    }
-    return mock
-
-
 # "You should generally have a single assertion per test case, because more fine-grained
 # test cases make it easier to figure out why the test suite failed when it does."
 # - CLAUDIO JOLOWICZ
