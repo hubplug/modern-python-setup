@@ -6,6 +6,7 @@ import requests
 from modern_python_setup import console
 
 
+# fixture to run from command line
 @pytest.fixture
 def runner():
     return click.testing.CliRunner()
@@ -47,3 +48,14 @@ def test_main_prints_message_on_request_error(runner, mock_requests_get):
     mock_requests_get.side_effect = requests.RequestException
     result = runner.invoke(console.main)
     assert "Error" in result.output
+
+
+# fixture to mock wikipedia.random_page
+@pytest.fixture
+def mock_wikipedia_random_page(mocker):
+    return mocker.patch("modern_python_setup.wikipedia.random_page")
+
+
+def test_main_uses_specified_language(runner, mock_wikipedia_random_page):
+    runner.invoke(console.main, ["--language=pl"])
+    mock_wikipedia_random_page.assert_called_with(language="pl")
