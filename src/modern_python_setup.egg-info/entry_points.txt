@@ -1,3 +1,0 @@
-[console_scripts]
-modern-python-setup = modern_python_setup.console:main
-
