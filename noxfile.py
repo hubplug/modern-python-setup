@@ -3,19 +3,6 @@ import tempfile
 import nox
 
 
-# nox session for automated tests
-@nox.session(python=["3.8", "3.7"])
-def tests(session):
-    # no end-to-end tests for default automated unit testing
-    # e.g. nox -r
-    # use -m e2e to run end-to-end tests
-    # e.g. nox -rs tests-3.8 -- -m e2e
-    # (run end-to-end tests inside the testing environment for Python 3.8)
-    args = session.posargs or ["--cov", "-m", "not e2e"]
-    session.run("poetry", "install", external=True)
-    session.run("pytest", *args)
-
-
 # instead of simply using "poetry install" (like for pytest), which installs a whole
 # bunch of dependencies required for testing but not necessarily for linting &
 # formatting, use poetry to generate "dev only" "requirements.txt" and pass it to
@@ -33,6 +20,26 @@ def install_with_constraints(session, *args, **kwargs):
         # session.install() installs package(s) into virtual env via pip
         # --constraint file specifies which version(s) to install
         session.install(f"--constraint={requirements.name}", *args, **kwargs)
+
+
+# nox session for automated tests
+@nox.session(python=["3.8", "3.7"])
+def tests(session):
+    # no end-to-end tests for default automated unit testing
+    # e.g. nox -r
+    # use -m e2e to run end-to-end tests
+    # e.g. nox -rs tests-3.8 -- -m e2e
+    # (run end-to-end tests inside the testing environment for Python 3.8)
+    args = session.posargs or ["--cov", "-m", "not e2e"]
+    # session.run("poetry", "install", external=True)
+    # instead of poetry install everything, which includes all dev dependencies,
+    # use poetry install with --no-dev, and then install dev dependencies
+    # only necessary for testing, using install_with_constraints()
+    session.run("poetry", "install", "--no-dev", external=True)
+    install_with_constraints(
+        session, "coverage[toml]", "pytest", "pytest-cov", "pytest-mock"
+    )
+    session.run("pytest", *args)
 
 
 # locations for linting & formatting
