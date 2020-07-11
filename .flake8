@@ -12,13 +12,14 @@
 ; ; set complexity limit
 ; max-complexity = 10
 
-[flake8] ; after flake8-black, flake8-import-order, flake8-bugbear
+[flake8] ; after flake8-black, flake8-import-order, flake8-bugbear, flake8-bandit
 ; enable all built-in violation classes, AND flake8-black warnings
 ; BLK are flake8-black warnings
 ; I are flake8-import-order warnings
 ; B are flake8-bugbear warnings
 ; B9 are flake8-bugbear more opinionated warnings
-select = B,B9,BLK,C,E,F,I,W
+; S are flake8-bandit warnings
+select = B,B9,BLK,C,E,F,I,S,W
 ; ignore conflicting warnings / errors
 ignore = E203,E501,W503
 ; set complexity limit
@@ -31,3 +32,5 @@ max-line-length = 80
 application-import-names = modern_python_setup,tests
 ; adopt Google styleguide with respect to the grouping and ordering details (import)
 import-order-style = google
+; ignore bandit warning on assert for test files
+per-file-ignores = tests/*:S101

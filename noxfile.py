@@ -30,7 +30,16 @@ def lint(session):
     #   also: asottile/reorder-python-imports and sqlalchemyorg/zimports
     # session.install("flake8", "flake8-black", "flake8-import-order")
     # add flake8-bugbear to check additional bugs or design problems
-    session.install("flake8", "flake8-black", "flake8-bugbear", "flake8-import-order")
+    # session.install("flake8", "flake8-black", "flake8-bugbear", "flake8-import-order")
+    # add flake8-bandit to check security issues
+    # alternative to flake8-bandit: python-afl
+    session.install(
+        "flake8",
+        "flake8-bandit",
+        "flake8-black",
+        "flake8-bugbear",
+        "flake8-import-order",
+    )
     session.run("flake8", *args)
 
 
