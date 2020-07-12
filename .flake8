@@ -21,7 +21,8 @@
 ; S are flake8-bandit warnings
 ; ANN are flake8-annotations warnings
 ; D are flake8-docstrings warnings
-select = ANN,B,B9,BLK,C,D,E,F,I,S,W
+; DAR are darglint warnings
+select = ANN,B,B9,BLK,C,D,DAR,E,F,I,S,W
 ; ignore conflicting warnings / errors
 ; D202: black sometimes adds a blank line after function docstring
 ignore = D202,E203,E501,W503
