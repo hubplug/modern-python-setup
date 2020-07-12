@@ -19,7 +19,8 @@
 ; B are flake8-bugbear warnings
 ; B9 are flake8-bugbear more opinionated warnings
 ; S are flake8-bandit warnings
-select = B,B9,BLK,C,E,F,I,S,W
+; ANN are flake8-annotations warnings
+select = ANN,B,B9,BLK,C,E,F,I,S,W
 ; ignore conflicting warnings / errors
 ignore = E203,E501,W503
 ; set complexity limit
@@ -32,5 +33,8 @@ max-line-length = 80
 application-import-names = modern_python_setup,tests
 ; adopt Google styleguide with respect to the grouping and ordering details (import)
 import-order-style = google
-; ignore bandit warning on assert for test files
-per-file-ignores = tests/*:S101
+per-file-ignores =
+    ; ignore bandit & annotation warnings on test files
+    tests/*:S101,ANN
+    ; ignore annotation warnings on noxfile.py
+    noxfile.py:ANN

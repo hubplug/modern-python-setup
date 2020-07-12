@@ -84,9 +84,19 @@ def lint(session):
     #     "flake8-import-order",
     # )
     # change do call install_with_constraints() instead of session.install()
+    # install_with_constraints(
+    #     session,
+    #     "flake8",
+    #     "flake8-bandit",
+    #     "flake8-black",
+    #     "flake8-bugbear",
+    #     "flake8-import-order",
+    # )
+    # add flake8-annotations to check missing annotations
     install_with_constraints(
         session,
         "flake8",
+        "flake8-annotations",
         "flake8-bandit",
         "flake8-black",
         "flake8-bugbear",
