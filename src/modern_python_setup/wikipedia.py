@@ -1,4 +1,6 @@
-from typing import Any
+from dataclasses import dataclass
+
+# from typing import Any
 
 import click
 import requests
@@ -8,7 +10,13 @@ import requests
 API_URL: str = "https://{language}.wikipedia.org/api/rest_v1/page/random/summary"
 
 
-def random_page(language: str = "en") -> Any:
+@dataclass
+class Page:
+    title: str
+    extract: str
+
+
+def random_page(language: str = "en") -> Page:
     url = API_URL.format(language=language)
 
     try:
