@@ -24,14 +24,16 @@ var/
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Unit test / coverage reports
+# Unit test / coverage reports / linter / checker
 .tox/
 .coverage
 .cache
 nosetests.xml
 coverage.xml
-.nox
-.pytest_cache
+.nox/
+.pytest_cache/
+.mypy_cache/
+.pytype/
 
 # Translations
 *.mo

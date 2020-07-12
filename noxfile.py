@@ -126,6 +126,16 @@ def mypy(session):
     session.run("mypy", *args)
 
 
+# nox session for type check (pytype)
+@nox.session(python="3.7")
+def pytype(session):
+    """Run the static type checker."""
+    # disable warnings for libraries / packages without type definitions
+    args = session.posargs or ["--disable=import-error", *locations]
+    install_with_constraints(session, "pytype")
+    session.run("pytype", *args)
+
+
 # define sessions run by default, excluding "black"
 # i.e. do not run black and modify file(s) all the time
-nox.options.sessions = "lint", "mypy", "safety", "tests"
+nox.options.sessions = "lint", "mypy", "pytype", "safety", "tests"
