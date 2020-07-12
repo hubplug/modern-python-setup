@@ -24,7 +24,7 @@ nox.options.sessions = "lint", "mypy", "pytype", "safety", "tests"
 package = "modern_python_setup"
 
 # define locations for linting & formatting
-locations = "src", "tests", "noxfile.py"
+locations = "src", "tests", "noxfile.py", "docs/conf.py"
 
 
 # instead of simply using "poetry install" (like for pytest), which installs a whole
@@ -215,3 +215,11 @@ def xdoctest(session: Session) -> None:
     session.run("poetry", "install", "--no-dev", external=True)
     install_with_constraints(session, "xdoctest")
     session.run("python", "-m", "xdoctest", package, *args)
+
+
+# nox session to generate documentation (sphinx)
+@nox.session(python="3.8")
+def docs(session: Session) -> None:
+    """Build the documentation."""
+    install_with_constraints(session, "sphinx")
+    session.run("sphinx-build", "docs", "docs/_build")
