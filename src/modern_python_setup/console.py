@@ -1,4 +1,3 @@
-# src/hypermodern_python/console.py
 import textwrap
 
 import click
