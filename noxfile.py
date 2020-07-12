@@ -1,13 +1,15 @@
 import tempfile
+from typing import Any
 
 import nox
+from nox.sessions import Session
 
 
 # instead of simply using "poetry install" (like for pytest), which installs a whole
 # bunch of dependencies required for testing but not necessarily for linting &
 # formatting, use poetry to generate "dev only" "requirements.txt" and pass it to
 # pip to install only dev dependencies and with correct version (pinning)
-def install_with_constraints(session, *args, **kwargs):
+def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> None:
     with tempfile.NamedTemporaryFile() as requirements:
         session.run(
             "poetry",
@@ -24,7 +26,7 @@ def install_with_constraints(session, *args, **kwargs):
 
 # nox session for automated tests
 @nox.session(python=["3.8", "3.7"])
-def tests(session):
+def tests(session: Session) -> None:
     # no end-to-end tests for default automated unit testing
     # e.g. nox -r
     # use -m e2e to run end-to-end tests
@@ -48,7 +50,7 @@ package = "modern_python_setup"
 
 # nox session to do runtime type checking (typeguard)
 @nox.session(python=["3.8", "3.7"])
-def typeguard(session):
+def typeguard(session: Session) -> None:
     args = session.posargs or ["-m", "not e2e"]
     session.run("poetry", "install", "--no-dev", external=True)
     install_with_constraints(session, "pytest", "pytest-mock", "typeguard")
@@ -62,7 +64,7 @@ locations = "src", "tests", "noxfile.py"
 
 # nox session for linting
 @nox.session(python=["3.8", "3.7"])
-def lint(session):
+def lint(session: Session) -> None:
     args = session.posargs or locations
     # session.install() installs package(s) into virtual env via pip
     # session.install("flake8")
@@ -113,7 +115,7 @@ def lint(session):
 
 # nox session for code formatting (black)
 @nox.session(python="3.8")
-def black(session):
+def black(session: Session) -> None:
     args = session.posargs or locations
     # session.install("black")
     # change do call install_with_constraints() instead of session.install()
@@ -125,7 +127,7 @@ def black(session):
 # uses the poetry export command to convert poetry’s lock file to a requirements file
 # the standard tempfile module is used to create a temporary file for the requirements
 @nox.session(python="3.8")
-def safety(session):
+def safety(session: Session) -> None:
     with tempfile.NamedTemporaryFile() as requirements:
         session.run(
             "poetry",
@@ -144,7 +146,7 @@ def safety(session):
 
 # nox session for type check (mypy)
 @nox.session(python=["3.8", "3.7"])
-def mypy(session):
+def mypy(session: Session) -> None:
     args = session.posargs or locations
     install_with_constraints(session, "mypy")
     session.run("mypy", *args)
@@ -152,7 +154,7 @@ def mypy(session):
 
 # nox session for type check (pytype)
 @nox.session(python="3.7")
-def pytype(session):
+def pytype(session: Session) -> None:
     """Run the static type checker."""
     # disable warnings for libraries / packages without type definitions
     args = session.posargs or ["--disable=import-error", *locations]

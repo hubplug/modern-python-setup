@@ -37,4 +37,4 @@ per-file-ignores =
     ; ignore bandit & annotation warnings on test files
     tests/*:S101,ANN
     ; ignore annotation warnings on noxfile.py
-    noxfile.py:ANN
+    ; noxfile.py:ANN
