@@ -198,3 +198,20 @@ def typeguard(session: Session) -> None:
     install_with_constraints(session, "pytest", "pytest-mock", "typeguard")
     # run typeguard with pytest plugin by passing "--typeguard-packages=..."
     session.run("pytest", f"--typeguard-packages={package}", *args)
+
+
+# nox session to run docstring examples (xdoctest)
+# runs all examples by default, to run only select example(s), do:
+# e.g. nox -rs xdoctest -- random_page
+# * "Xdoctest integrates with Pytest as a plugin, so you could also install
+# * the tool into your existing Nox session for Pytest, and enable it via
+# * the --xdoctest option. We are using it in stand-alone mode here, which has
+# * the advantage of keeping unit tests and doctest separate."
+@nox.session(python=["3.8", "3.7"])
+def xdoctest(session: Session) -> None:
+    """Run examples with xdoctest."""
+    args = session.posargs or ["all"]
+    # install modern_python_setup, as both xdoctest & example need it
+    session.run("poetry", "install", "--no-dev", external=True)
+    install_with_constraints(session, "xdoctest")
+    session.run("python", "-m", "xdoctest", package, *args)
