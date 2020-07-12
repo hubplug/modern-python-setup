@@ -5,6 +5,7 @@ import desert
 import marshmallow
 import requests
 
+
 # the url now accepts different language specified by user
 API_URL: str = "https://{language}.wikipedia.org/api/rest_v1/page/random/summary"
 
@@ -31,7 +32,7 @@ def random_page(language: str = "en") -> Page:
             data = response.json()
             # schema.load(data) -> use schema to load data
             return schema.load(data)
-    except requests.RequestException as error:
+    except (requests.RequestException, marshmallow.ValidationError) as error:
         # handle requests exception gracefully, raise as click exception
         message = str(error)
         raise click.ClickException(message)

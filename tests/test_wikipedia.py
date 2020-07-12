@@ -1,3 +1,6 @@
+import click.testing
+import pytest
+
 from modern_python_setup import wikipedia
 
 
@@ -10,3 +13,12 @@ def test_random_page_uses_given_language(mock_requests_get):
 def test_random_page_returns_page(mock_requests_get):
     page = wikipedia.random_page()
     assert isinstance(page, wikipedia.Page)
+
+
+def test_random_page_handles_validation_errors(mock_requests_get):
+    # test what happens if None is returned as JSON obj (by wikipedia)
+    # schema validation should fail
+    mock_requests_get.return_value.__enter__.return_value.json.return_value = None
+    # assert click.ClickException would be raised
+    with pytest.raises(click.ClickException):
+        wikipedia.random_page()
