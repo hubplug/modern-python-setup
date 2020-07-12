@@ -118,6 +118,14 @@ def safety(session):
         session.run("safety", "check", f"--file={requirements.name}", "--full-report")
 
 
+# nox session for type check (mypy)
+@nox.session(python=["3.8", "3.7"])
+def mypy(session):
+    args = session.posargs or locations
+    install_with_constraints(session, "mypy")
+    session.run("mypy", *args)
+
+
 # define sessions run by default, excluding "black"
 # i.e. do not run black and modify file(s) all the time
-nox.options.sessions = "lint", "safety", "tests"
+nox.options.sessions = "lint", "mypy", "safety", "tests"
