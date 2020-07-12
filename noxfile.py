@@ -95,6 +95,16 @@ def lint(session: Session) -> None:
     #     "flake8-import-order",
     # )
     # add flake8-annotations to check missing annotations
+    # install_with_constraints(
+    #     session,
+    #     "flake8",
+    #     "flake8-annotations",
+    #     "flake8-bandit",
+    #     "flake8-black",
+    #     "flake8-bugbear",
+    #     "flake8-import-order",
+    # )
+    # add flake8-docstrings to check docstrings
     install_with_constraints(
         session,
         "flake8",
@@ -102,6 +112,7 @@ def lint(session: Session) -> None:
         "flake8-bandit",
         "flake8-black",
         "flake8-bugbear",
+        "flake8-docstrings",
         "flake8-import-order",
     )
     session.run("flake8", *args)
