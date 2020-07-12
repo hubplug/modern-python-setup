@@ -42,6 +42,20 @@ def tests(session):
     session.run("pytest", *args)
 
 
+# define package name
+package = "modern_python_setup"
+
+
+# nox session to do runtime type checking (typeguard)
+@nox.session(python=["3.8", "3.7"])
+def typeguard(session):
+    args = session.posargs or ["-m", "not e2e"]
+    session.run("poetry", "install", "--no-dev", external=True)
+    install_with_constraints(session, "pytest", "pytest-mock", "typeguard")
+    # run typeguard with pytest plugin by passing "--typeguard-packages=..."
+    session.run("pytest", f"--typeguard-packages={package}", *args)
+
+
 # locations for linting & formatting
 locations = "src", "tests", "noxfile.py"
 
