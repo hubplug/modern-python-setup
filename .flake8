@@ -43,12 +43,12 @@ import-order-style = edited
     ; tests/*:S101,ANN
     ; ignore annotation warnings on noxfile.py
     ; noxfile.py:ANN
-per-file-ignores =
+; per-file-ignores =
     ; ignore bandit & docstring warnings on test files
-    tests/*:S101,D
+    ; tests/*:S101,D
     ; ignore docstring warnings on noxfile.py
-    noxfile.py:D
-; ; ignore bandit warnings on test files
-; per-file-ignores = tests/*:S101
+    ; noxfile.py:D
+; ignore bandit & docstring warnings on test files
+per-file-ignores = tests/*:S101,D
 ; adopt Google docstring style
 docstring-convention = google
