@@ -31,10 +31,15 @@ max-complexity = 10
 max-line-length = 80
 ; inform flake8-import-order about package names which are considered local
 application-import-names = modern_python_setup,tests
-; adopt Google styleguide with respect to the grouping and ordering details (import)
-import-order-style = google
-per-file-ignores =
+; ; adopt Google styleguide for grouping and ordering of import
+; ; import-order-style = google
+; change import order style to match vscode builtin isort, to avoid conflict
+; (default = cryptography)
+import-order-style = edited
+; per-file-ignores =
     ; ignore bandit & annotation warnings on test files
-    tests/*:S101,ANN
+    ; tests/*:S101,ANN
     ; ignore annotation warnings on noxfile.py
     ; noxfile.py:ANN
+; ignore bandit warnings on test files
+per-file-ignores = tests/*:S101
