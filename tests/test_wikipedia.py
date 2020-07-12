@@ -24,10 +24,10 @@ def test_random_page_handles_validation_errors(mock_requests_get):
         wikipedia.random_page()
 
 
-def test_trigger_typeguard(mock_requests_get):
-    # test to fail typeguard on purpose
-    import json
+# def test_trigger_typeguard(mock_requests_get):
+#     # test to fail typeguard on purpose
+#     import json
 
-    # this will pass static type checkers as values loaded from JSON are hard to chk
-    data = json.loads('{ "language": 1 }')
-    wikipedia.random_page(language=data["language"])
+#     # this will pass static type checkers as values loaded from JSON are hard to chk
+#     data = json.loads('{ "language": 1 }')
+#     wikipedia.random_page(language=data["language"])
