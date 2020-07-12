@@ -48,7 +48,7 @@ import-order-style = edited
     ; tests/*:S101,D
     ; ignore docstring warnings on noxfile.py
     ; noxfile.py:D
-; ignore bandit & docstring warnings on test files
-per-file-ignores = tests/*:S101,D
+; ignore bandit warnings on test files
+per-file-ignores = tests/*:S101
 ; adopt Google docstring style
 docstring-convention = google
