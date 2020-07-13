@@ -2,4 +2,4 @@
 [![Codecov](https://codecov.io/gh/hubplug/modern-python-setup/branch/master/graph/badge.svg)](https://codecov.io/gh/hubplug/modern-python-setup)
 
 # modern-python-setup
-Based on "Hypermodern Python" by CLAUDIO JOLOWICZ (https://cjolowicz.github.io/posts/hypermodern-python-01-setup/)
+Based on [Hypermodern Python](https://cjolowicz.github.io/posts/hypermodern-python-01-setup/) by [CLAUDIO JOLOWICZ](https://cjolowicz.github.io/)
