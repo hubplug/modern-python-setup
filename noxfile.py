@@ -13,7 +13,7 @@ from nox.sessions import Session
 # e.g. nox -rs lint (only run lint)
 
 # to list all sessions:
-# e.g. nox ----list-sessions
+# e.g. nox --list-sessions
 
 
 # manually define sessions run by default, excluding "black" & "typeguard"
