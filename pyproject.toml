@@ -8,6 +8,7 @@ homepage = "https://github.com/hubplug/modern-python-setup"
 repository = "https://github.com/hubplug/modern-python-setup"
 keywords = ["modern", "python", "setup"]
 authors = ["Hub Plug <31110528+hubplug@users.noreply.github.com>"]
+documentation = "https://modern-python-setup.readthedocs.io"
 
 [tool.poetry.dependencies]
 python = "^3.7"
